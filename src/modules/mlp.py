@@ -68,7 +68,6 @@ class MLP(classifier.Classifier):
     def get_score(self, document):
         '''
         Get scores (e.g. Probability) for each category
-        :param document: input sentence
         '''
         word_list = {}
         X = self.vectorizer.transform([document])
