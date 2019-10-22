@@ -33,11 +33,21 @@ class MLP(classifier.Classifier):
         return mecab_result.split(' ') 
 
     def __get_vector(self, documents):
+        '''
+        Vectorize sentences using bag-of-words
+        :param documents: sentence list;train data
+        :return: sentence vector list
+        '''
         bow = self.vectorizer.fit_transform(documents)
         X = bow.todense()
         return X 
 
     def train(self, documents, categories):
+        '''
+        Train the model
+        :param documents: a list of sentences
+        :param categories: a list of categories 
+        '''
         X = self.__get_vector(documents)
 
         le = LabelEncoder()
@@ -47,6 +57,10 @@ class MLP(classifier.Classifier):
         self.classes = le.classes_.tolist()
 
     def predict(self, document):
+        '''
+        Predict a most likely category
+        :param document: input sentence
+        '''
         X = self.vectorizer.transform([document])
         key = self.model.predict(X)
         return self.classes[key[0]]
@@ -54,6 +68,7 @@ class MLP(classifier.Classifier):
     def get_score(self, document):
         '''
         Get scores (e.g. Probability) for each category
+        :param document: input sentence
         '''
         word_list = {}
         X = self.vectorizer.transform([document])
