@@ -30,6 +30,9 @@ def main():
     elif args.model == 'mlp_bow':
         model = mlp.MLP()
         train_model(model, all_data)
+    elif args.model == 'mlp_tfidf':
+        model = mlp.MLP_Tfidf()
+        train_model(model, all_data)
 
 def train_model_online(model, train_data):
     for data in train_data.keys():

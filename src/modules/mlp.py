@@ -2,7 +2,7 @@
 MLP classifier
 '''
 from . import classifier
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.preprocessing import LabelEncoder
 import json
 import math
@@ -16,7 +16,7 @@ class MLP(classifier.Classifier):
     MLP classifier with bag-of-words
     '''
     def __init__(self):
-        self.model = MLPClassifier(max_iter=10, hidden_layer_sizes=(100,),verbose=10,)
+        self.model = MLPClassifier(max_iter=100, hidden_layer_sizes=(200,),verbose=10,)
         self.classes = ''
         self.vectorizer = CountVectorizer(analyzer=self.tokenize) 
 
@@ -75,6 +75,15 @@ class MLP(classifier.Classifier):
         for i, category in enumerate(self.classes):
             word_list[category] = key[0][i]
         return word_list
+
+
+class MLP_Tfidf(MLP):
+    '''
+    MLP classifier with tf-idf 
+    '''
+    def __init__(self):
+        super().__init__() 
+        self.vectorizer = TfidfVectorizer(analyzer=self.tokenize)
 
 #if __name__ == '__main__':
 #    sents = ['皆おはよう今日もいい天気だね','皆皆生きているんだ友達なんだ']

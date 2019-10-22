@@ -11,7 +11,7 @@ python train.py --model naive_bayes --train_data $DATA_PATH/data.json --save_pat
 python predict.py --model $OUT_PATH/NaiveBayes/naive_bayes.pkl
 ```
 
-## ニューラルネットワーク 
+## ニューラルネットワーク(bag-of-words)
 scikit-learnのMLPClassifierを用いたニューラルネットワークによる多クラス分類
 ### training
 ```
@@ -20,4 +20,15 @@ python train.py --model mlp_bow --train_data $DATA_PATH/data.json --save_path $O
 ### prediction
 ```
 python predict.py --model $OUT_PATH/MLP/mlp_bow.pkl
+```
+
+## ニューラルネットワーク(tf-idf)
+上記に加えtf-idfを用いた多クラス分類
+### training
+```
+python train.py --model mlp_tfidf --train_data $DATA_PATH/data.json --save_path $OUT_PATH/MLP/mlp_tfidf.pkl
+```
+### prediction
+```
+python predict.py --model $OUT_PATH/MLP/mlp_tfidf.pkl
 ```
