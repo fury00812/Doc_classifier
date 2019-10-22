@@ -77,6 +77,8 @@ class NaiveBayes(classifier.Classifier):
     def __score(self, words, category):
         '''
         Calculate conditional probability P(doc|category)
+        :param words: a list of words
+        :param category: label of words
         '''
         score = math.log(self.__prior_prob(category))
         for word in words:
@@ -86,6 +88,8 @@ class NaiveBayes(classifier.Classifier):
     def train(self, document, category):
         '''
         Train the model
+        :param document: input sentence
+        :param category: label of sentence 
         '''
         words = self.__tokenize(document)
         for word in words:
@@ -95,6 +99,7 @@ class NaiveBayes(classifier.Classifier):
     def predict(self, document):
         '''
         Predict a most likely category
+        :param document: input sentence
         '''
         word_list = {} 
         words = self.__tokenize(document)
@@ -105,6 +110,7 @@ class NaiveBayes(classifier.Classifier):
     def get_score(self, document):
         '''
         Get scores (e.g. Probability) for each category
+        :param document: input sentence
         '''
         word_list = {}
         words = self.__tokenize(document)
