@@ -1,1 +1,1 @@
-__all__ = ['classifier', 'naive_bayes']
+__all__ = ['classifier', 'naive_bayes', 'mlp']

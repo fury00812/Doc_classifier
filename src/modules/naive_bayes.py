@@ -111,8 +111,3 @@ class NaiveBayes(classifier.Classifier):
         for category in self.__category_count.keys():
             word_list[category] = self.__score(words, category)
         return word_list
-
-
-
-
-

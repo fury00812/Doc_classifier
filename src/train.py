@@ -2,6 +2,7 @@ from pathlib import Path
 import argparse
 import pickle
 import json
+import tqdm
 from modules import *
 
 
@@ -20,16 +21,31 @@ def get_args():
 
 
 def main():
+    all_data = load_json_from_file(args.train_data) 
     model = classifier.Classifier()
+
     if args.model == 'naive_bayes':
         model = naive_bayes.NaiveBayes()
-    all_data = load_json_from_file(args.train_data) 
-    for data in all_data.keys():
-        category = all_data[data]['category']
-        document = '\n'.join([all_data[data]['title'], all_data[data]['content']])
-        model.train(document, category)
-    save_model(args.save_path, model) 
+        train_model_online(model, all_data)
+    elif args.model == 'mlp_bow':
+        model = mlp.MLP()
+        train_model(model, all_data)
 
+def train_model_online(model, train_data):
+    for data in train_data.keys():
+        category = train_data[data]['category']
+        document = '\n'.join([train_data[data]['title'], train_data[data]['content']])
+        model.train(document, category)
+    save_model(args.save_path, model)
+
+def train_model(model, train_data):
+    categories = []
+    documents = []
+    for data in train_data.keys():
+        categories.append(train_data[data]['category'])
+        documents.append('\n'.join([train_data[data]['title'], train_data[data]['content']]))
+    model.train(documents, categories)
+    save_model(args.save_path, model)
 
 def load_json_from_file(path):
     '''
